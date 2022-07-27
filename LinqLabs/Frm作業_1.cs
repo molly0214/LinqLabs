@@ -125,15 +125,34 @@ namespace MyHomeWork
             this.dataGridView1.DataSource = q.ToList();
         }
 
+
+
         //     某年訂單 / 訂單明細
         private void button1_Click(object sender, EventArgs e)
         {
-           
-                
-         }
+            if ("".Equals(comboBox1.Text))
+                return;
+            int i = int.Parse(comboBox1.Text);
+            ordersTableAdapter1.Fill(nwDataSet11.Orders);
+            order_DetailsTableAdapter1.Fill(nwDataSet11.Order_Details);
+            productsTableAdapter1.Fill(nwDataSet11.Products);
+        
+            var q1 = from o in nwDataSet11.Orders
+                     where o.OrderDate.Year == i
+                     select o;
 
-        //找出前面三個的學員所有科目成績
-        private void button5_Click(object sender, EventArgs e)
+            dataGridView1.DataSource = q1.ToList();
+
+            var q2 = from ol in nwDataSet11.Order_Details
+                     join o in nwDataSet11.Orders on ol.OrderID equals o.OrderID
+                     where o.OrderDate.Year == i
+                     select ol;
+
+            dataGridView2.DataSource = q2.ToList();
+        }
+
+            //找出前面三個的學員所有科目成績
+            private void button5_Click(object sender, EventArgs e)
         {
             //step1: define 來源物件 source object
             //step2: define query-from where select

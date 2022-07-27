@@ -167,6 +167,7 @@ namespace Starter
             }
         }
 
+
         private void button13_Click(object sender, EventArgs e)
         {
             int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
@@ -177,5 +178,86 @@ namespace Starter
                 this.listBox1.Items.Add(n);
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+
+            IEnumerable<int> q = nums.Where<int>(n => n > 5);
+
+            this.listBox1.Items.Clear();
+            foreach (int n in q)
+            {
+                this.listBox1.Items.Add(n);
+            }
+
+            //---------------------------------------------------------------------------------------------------------------
+            string[] words = { "aaa", "bbb", "cccccccc", "ddddd" };
+            IEnumerable<string> q2 = words.Where<string>(w => w.Length > 3);
+            this.listBox2.Items.Clear();
+            foreach (string s in q2)
+            {
+                this.listBox2.Items.Add(s);
+            }
+            //---------------------------------------------------------------------------------------------------------------
+            //價錢大於30
+            this.productsTableAdapter1.Fill(this.nwDataSet11.Products);
+            var q3 = nwDataSet11.Products.Where(p => p.UnitPrice > 30);
+            this.dataGridView1.DataSource = q3.ToList();
+
+        }
+
+        private void button45_Click(object sender, EventArgs e)
+        {
+            //var 懶得寫(x)
+            //========================
+            //var 型別難寫
+            //var for 匿名型別
+
+            int n = 100;
+            var n1 = 200;
+            var s = "abcde";
+
+            MessageBox.Show(s.ToUpper());
+
+            var p = new Point(1, 10);
+            MessageBox.Show(p.X + "," + p.Y);
+        }
+
+        private void button41_Click(object sender, EventArgs e)
+        {
+            MyPoint pt1 = new MyPoint();
+            pt1.P1 = 100;   //set;  int w =  pt1.P1;  //get
+            pt1.P2 = 200;   //set
+
+            List<MyPoint> list = new List<MyPoint>();
+            list.Add(pt1);
+
+            this.dataGridView1.DataSource = list;
+        }
     }
 }
+
+class MyPoint
+{
+
+    public string Field1 = "xxxx", Field2 = "yyyyy";
+
+    private int m_p1;
+    public int P1
+    {
+        get
+        {
+            //logic .....
+            return m_p1;
+        }
+        set
+        {
+            //logic .....
+            m_p1 = value;
+        }
+    }
+    public int P2 { get; set; }
+
+}
+
