@@ -220,6 +220,7 @@
             this.button43.TabIndex = 40;
             this.button43.Text = "匿名型別 Anonymouse type";
             this.button43.UseVisualStyleBackColor = false;
+            this.button43.Click += new System.EventHandler(this.button43_Click);
             // 
             // button41
             // 
@@ -308,6 +309,7 @@
             this.button32.TabIndex = 20;
             this.button32.Text = "擴充方法";
             this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click);
             // 
             // groupBox1
             // 

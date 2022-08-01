@@ -118,7 +118,7 @@ namespace MyHomeWork
             System.IO.FileInfo[] files = dir.GetFiles();
 
             var q = from p in files
-                    where p.Length >0
+                    where p.Length >1000
                     orderby p.Length descending
                     select p;
 
@@ -141,7 +141,7 @@ namespace MyHomeWork
                      where o.OrderDate.Year == i
                      select o;
 
-            dataGridView1.DataSource = q1.ToList();
+            this.dataGridView1.DataSource = q1.ToList();
 
             var q2 = from ol in nwDataSet11.Order_Details
                      join o in nwDataSet11.Orders on ol.OrderID equals o.OrderID
@@ -193,10 +193,68 @@ namespace MyHomeWork
         //數學不及格... 是誰
         private void button10_Click(object sender, EventArgs e)
         {
+            //step1: define 來源物件 source object
+            //step2: define query-from where select
+            //step3: execute query-投射出來
             var q6 = from s in students_scores
                      where s.Math < 60
                      select s;
             this.dataGridView1.DataSource = q6.ToList();
         }
+
+        
+        //上一頁
+        private void button11_Click(object sender, EventArgs e)
+        {
+            //step1: define 來源物件 source object
+            //step2: define query-from where select
+            //step3: execute query-投射出來
+            {
+                if (page > nwDataSet11.Orders.Rows.Count / int.Parse(textBox1.Text))
+                {
+                    return;
+                }
+                page += 1;
+                var q = from p in this.nwDataSet11.Orders.Take(page * int.Parse(textBox1.Text)).Skip((page - 1) * int.Parse(textBox1.Text))
+                        select p;
+                this.dataGridView1.DataSource = q.ToList();
+                List<LinqLabs.NWDataSet1.Order_DetailsRow> temp = new List<LinqLabs.NWDataSet1.Order_DetailsRow>();
+                foreach (var i in q)
+                {
+                    var q2 = from p in this.nwDataSet11.Order_Details
+                             where p.OrderID == i.OrderID
+                             select p;
+                    temp.AddRange(q2);
+                }
+                dataGridView2.DataSource = temp;
+            }
+        }
+
+        int page = 0;
+
+        //下一頁
+        private void button12_Click(object sender, EventArgs e)
+        {
+            //step1: define 來源物件 source object
+            //step2: define query-from where select
+            //step3: execute query-投射出來
+                if (page <= 1)
+                {
+                    return;
+                }
+                page -= 1;
+                var q = from p in this.nwDataSet11.Orders.Take(page * int.Parse(textBox1.Text)).Skip((page - 1) * int.Parse(textBox1.Text))
+                        select p;
+                this.dataGridView1.DataSource = q.ToList();
+                List<LinqLabs.NWDataSet1.Order_DetailsRow> temp = new List<LinqLabs.NWDataSet1.Order_DetailsRow>();
+                foreach (var i in q)
+                {
+                    var q6 = from p in this.nwDataSet11.Order_Details
+                             where p.OrderID == i.OrderID
+                             select p;
+                    temp.AddRange(q6);
+                }
+                dataGridView2.DataSource = temp;
+            }
     }
 }

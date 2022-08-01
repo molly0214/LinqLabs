@@ -210,7 +210,7 @@ namespace Starter
         private void button45_Click(object sender, EventArgs e)
         {
             //var 懶得寫(x)
-            //========================
+            //---------------------------------------------------------------------------------------------------------------
             //var 型別難寫
             //var for 匿名型別
 
@@ -229,17 +229,109 @@ namespace Starter
             MyPoint pt1 = new MyPoint();
             pt1.P1 = 100;   //set;  int w =  pt1.P1;  //get
             pt1.P2 = 200;   //set
+            {
+                List<MyPoint> list = new List<MyPoint>();
+                list.Add(pt1);
 
-            List<MyPoint> list = new List<MyPoint>();
-            list.Add(pt1);
+                MyPoint pt2 = new MyPoint(99);
+                MyPoint pt3 = new MyPoint(88, 88);
+                list.Add(pt2);
+                list.Add(pt3);
 
-            this.dataGridView1.DataSource = list;
+                list.Add(new MyPoint { P1 = 1, P2 = 2, Field1 = "aaaa", Field2 = "bbbb" });
+                list.Add(new MyPoint { P1 = 1000 });
+                list.Add(new MyPoint { P2 = 2000 });
+
+                this.dataGridView1.DataSource = list;
+                //---------------------------------------------------------------------------------------------------------------
+
+                List<MyPoint> list2 = new List<MyPoint>()
+                {
+                    
+                    new MyPoint { P1 = 1010 },
+                    new MyPoint { P2 = 1011 },
+
+                };
+                this.dataGridView2.DataSource = list2;
+            }
         }
+
+        private void button43_Click(object sender, EventArgs e)
+        {
+            var pt1 = new { P1 = 3, P2 = 44 };
+            var pt2 = new { P1 = 3, P2 = 44, P3 = 88 };
+            var pt3 = new { P1 = 33, P2 = 434, P3 = 88 };
+
+            this.listBox1.Items.Add(pt1.GetType());
+            this.listBox1.Items.Add(pt2.GetType());
+            this.listBox1.Items.Add(pt3.GetType());
+
+            int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+
+            //var  q = from n in nums
+            //                where n > 5
+            //                select new { N = n, Square = n * n, Cube = n * n * n };
+
+            var q = nums.Where(n => n > 5).Select(n => new { N = n, Square = n * n, Cube = n * n * n });
+
+            this.dataGridView1.DataSource = q.ToList();
+
+            //---------------------------------------------------------------------------------------------------------------
+
+            this.productsTableAdapter1.Fill(this.nwDataSet11.Products);
+            //var q2 = from p in this.nwDataSet1.Products
+            //         where p.UnitPrice > 30
+            //         select new 
+            //         {
+            //             ID = p.ProductID,
+            //             產品名稱 = p.ProductName,
+            //             p.UnitPrice,
+            //             p.UnitsInStock,
+            //             TotalPrice = p.UnitPrice * p.UnitsInStock
+            //         };
+
+            var q2 = this.nwDataSet11.Products.Where(p => p.UnitPrice > 30).Select(p => new { p.ProductID, p.ProductName, p.UnitPrice, p.UnitsInStock, TotalPrice = p.UnitPrice * p.UnitsInStock });
+            this.dataGridView2.DataSource = q2.ToList();
+        }
+
+        private void button32_Click(object sender, EventArgs e)
+        {
+            string s = "aqazwsxedcrfvtgbyhnujmik,ol";
+            int count = s.WordCount();
+            MessageBox.Show("字數為" + count);
+            //---------------------------------------------------------------------------------------------------------------
+            string s1 = "aqazwsxedcrfvtgbyhnujmik,ol";
+            count = s1.WordCount();
+            char ch = s1.Chars(3);
+            MessageBox.Show("ch=" + ch);
+        }
+    }
+}
+public static class MyStringExtend
+{
+    public static int WordCount(this string s)
+    {
+        return s.Length;
+    }
+    public static char Chars(this string s, int index)
+    {
+        return s[index];
     }
 }
 
 class MyPoint
 {
+    public MyPoint() {    }
+    public MyPoint(int p1)
+    {
+        this.P1 = p1;
+    }
+    public MyPoint(int p1, int p2)
+    {
+        this.P1 = p1;
+        this.P2 = p2;
+    }
+    public MyPoint(int p1, string field1) {  }
 
     public string Field1 = "xxxx", Field2 = "yyyyy";
 

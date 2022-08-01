@@ -66,6 +66,7 @@ namespace MyHomeWork
             this.productsTableAdapter1 = new LinqLabs.NWDataSet1TableAdapters.ProductsTableAdapter();
             this.tableAdapterManager1 = new LinqLabs.NWDataSet1TableAdapters.TableAdapterManager();
             this.nwDataSet11 = new LinqLabs.NWDataSet1();
+            this.order_DetailsTableAdapter2 = new LinqLabs.NWDataSet1TableAdapters.Order_DetailsTableAdapter();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -233,6 +234,7 @@ namespace MyHomeWork
             this.button12.TabIndex = 155;
             this.button12.Text = "下一頁";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // button11
             // 
@@ -242,6 +244,7 @@ namespace MyHomeWork
             this.button11.TabIndex = 154;
             this.button11.Text = "上一頁";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button10
             // 
@@ -323,7 +326,7 @@ namespace MyHomeWork
             // button36
             // 
             this.button36.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.button36.Location = new System.Drawing.Point(4, 242);
+            this.button36.Location = new System.Drawing.Point(11, 242);
             this.button36.Margin = new System.Windows.Forms.Padding(4);
             this.button36.Name = "button36";
             this.button36.Size = new System.Drawing.Size(113, 38);
@@ -509,6 +512,7 @@ namespace MyHomeWork
             // tableAdapterManager1
             // 
             this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager1.CategoriesTableAdapter = null;
             this.tableAdapterManager1.Order_DetailsTableAdapter = this.order_DetailsTableAdapter1;
             this.tableAdapterManager1.OrdersTableAdapter = this.ordersTableAdapter1;
             this.tableAdapterManager1.ProductsTableAdapter = this.productsTableAdapter1;
@@ -518,6 +522,10 @@ namespace MyHomeWork
             // 
             this.nwDataSet11.DataSetName = "NWDataSet1";
             this.nwDataSet11.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // order_DetailsTableAdapter2
+            // 
+            this.order_DetailsTableAdapter2.ClearBeforeFill = true;
             // 
             // Frm作業_1
             // 
@@ -590,5 +598,6 @@ namespace MyHomeWork
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button11;
+        private LinqLabs.NWDataSet1TableAdapters.Order_DetailsTableAdapter order_DetailsTableAdapter2;
     }
 }
